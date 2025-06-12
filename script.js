@@ -23,3 +23,18 @@ document.getElementById("search-form").addEventListener("submit", e => {
 });
 
 renderList(links);
+
+fetch('links.json')
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById("links-list");
+    data.forEach(link => {
+      const a = document.createElement("a");
+      a.href = link.url;
+      a.textContent = link.name;
+      a.target = "_blank";
+      a.className = "link-button";
+      container.appendChild(a);
+    });
+  });
+
