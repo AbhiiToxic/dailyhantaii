@@ -33,24 +33,49 @@ body.dark {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
+#top-bar {
+  position: sticky;
+  top: 0;
+  background: var(--container-bg);
+  z-index: 100;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
-#toggle-theme {
-  padding: 6px 10px;
-  background: var(--button-bg);
-  color: #fff;
+.site-title {
+  font-family: 'Playfair Display', serif;
+  color: yellow;
+  margin: 0;
+}
+
+#menu-toggle {
+  background: transparent;
   border: none;
-  border-radius: 4px;
+  font-size: 24px;
+  color: var(--text);
   cursor: pointer;
 }
 
-#toggle-theme:hover {
-  background: var(--button-bg-hover);
+#menu {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+#menu.open {
+  display: flex;
+}
+
+.menu-item {
+  color: var(--text);
+  text-decoration: none;
+  padding: 4px 0;
 }
 
 #search-form {
