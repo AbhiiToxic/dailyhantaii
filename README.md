@@ -29,3 +29,15 @@ commands. If `ADMIN_ID` is not set, anyone can manage the links.
 
 The bot reads and writes `links.json` in the repository root. It can be
 deployed to platforms like Vercel using a Python runtime.
+
+## Python web site
+
+The JavaScript front end has been replaced with a small Flask application. To
+serve the site locally run:
+
+```bash
+python app.py
+```
+
+The app uses the same `links.json` file and renders the list of links server
+side.
