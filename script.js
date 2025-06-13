@@ -49,22 +49,10 @@ document.getElementById("search-form").addEventListener("submit", e => {
 
 loadLinks();
 
-// Theme toggle
-const body = document.body;
-const toggleBtn = document.getElementById("toggle-theme");
+// menu toggle
+const menuToggle = document.getElementById('menu-toggle');
+const menu = document.getElementById('menu');
 
-function setTheme(dark) {
-  if (dark) {
-    body.classList.add("dark");
-  } else {
-    body.classList.remove("dark");
-  }
-  localStorage.setItem("theme", dark ? "dark" : "light");
-}
-
-setTheme(localStorage.getItem("theme") === "dark");
-
-toggleBtn.addEventListener("click", () => {
-  const isDark = body.classList.contains("dark");
-  setTheme(!isDark);
+menuToggle.addEventListener('click', () => {
+  menu.classList.toggle('open');
 });
