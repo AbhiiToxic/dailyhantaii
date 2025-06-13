@@ -32,12 +32,13 @@ deployed to platforms like Vercel using a Python runtime.
 
 ## Python web site
 
-The JavaScript front end has been replaced with a small Flask application. To
-serve the site locally run:
+The JavaScript front end has been replaced with a small Flask application.
+To serve the site locally run:
 
 ```bash
 python app.py
 ```
 
-The app uses the same `links.json` file and renders the list of links server
-side.
+The app uses the same `links.json` file and renders the list of links
+server side.  Set the `PORT` environment variable if your host requires a
+specific port.
