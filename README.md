@@ -30,15 +30,13 @@ commands. If `ADMIN_ID` is not set, anyone can manage the links.
 The bot reads and writes `links.json` in the repository root. It can be
 deployed to platforms like Vercel using a Python runtime.
 
-## Python web site
+## JavaScript web site
 
-The JavaScript front end has been replaced with a small Flask application.
-To serve the site locally run:
+This repository includes a small Express server. To serve the site locally run:
 
 ```bash
-python app.py
+npm install
+npm start
 ```
 
-The app uses the same `links.json` file and renders the list of links
-server side.  Set the `PORT` environment variable if your host requires a
-specific port.
+The server reads the same `links.json` file and the client renders the list. Set the `PORT` environment variable if your host requires a specific port.

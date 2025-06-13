@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Link Directory</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+</head>
+<body class="dark">
+  <div class="container">
+    <div id="top-bar">
+      <div class="header">
+        <h1 class="site-title">Daily Hantai</h1>
+        <button id="menu-toggle" aria-label="Menu">&#9776;</button>
+      </div>
+      <form id="search-form" action="" method="get">
+        <input type="text" id="query" name="q" placeholder="Search links..." />
+        <button type="submit">Search</button>
+      </form>
+      <nav id="menu" class="menu">
+        <a href="https://t.me/Bishnoi_botz" class="menu-item">Telegram Channel</a>
+        <a href="https://t.me/Bishnoi_botz" class="menu-item">Instagram Videos Channel</a>
+        <a href="https://t.me/Bishnoi_botz" class="menu-item">Support</a>
+      </nav>
+    </div>
+    <div id="links-list"></div>
+  </div>
+  <script>
+    function getQueryParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name) || '';
+    }
+
+    async function loadLinks() {
+      const res = await fetch('links.json');
+      const data = await res.json();
+      const query = getQueryParam('q').toLowerCase();
+      const listEl = document.getElementById('links-list');
+      document.getElementById('query').value = query;
+      const filtered = data
+        .filter(l => !query || (l.name && l.name.toLowerCase().includes(query)))
+        .sort((a, b) => {
+          const na = parseInt(a.name, 10) || 0;
+          const nb = parseInt(b.name, 10) || 0;
+          return nb - na;
+        });
+      for (const link of filtered) {
+        const a = document.createElement('a');
+        a.href = `view?name=${encodeURIComponent(link.name)}&preview=${encodeURIComponent(link.preview)}&download=${encodeURIComponent(link.download)}`;
+        a.className = 'link-button';
+        a.textContent = link.name;
+        listEl.appendChild(a);
+      }
+    }
+
+    loadLinks();
+  </script>
+</body>
+</html>
