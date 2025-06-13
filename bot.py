@@ -4,8 +4,8 @@ from pathlib import Path
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
 
-TOKEN = os.getenv('BOT_TOKEN', 'yha bot id dalo')
-ADMIN_ID = os.getenv('ADMIN_ID', 'yha admin id')
+TOKEN = os.getenv('BOT_TOKEN', '8194013544:AAGQfMVe7z_Pu5KAJxicctcavJprSj1MFOg')
+ADMIN_ID = os.getenv('ADMIN_ID', '7936963238')
 
 links_path = Path(__file__).with_name('links.json')
 
