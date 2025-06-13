@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Link Options</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+</head>
+<body class="dark">
+  <div class="container">
+    <div class="header">
+      <h1 id="title">Link</h1>
+    </div>
+    <div id="action-buttons">
+      <a id="preview-btn" class="action-btn" target="_blank" href="#">Preview</a>
+      <a id="download-btn" class="action-btn" target="_blank" href="#">Download</a>
+    </div>
+  </div>
+  <script>
+    function getQueryParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name) || '';
+    }
+
+    function init() {
+      const name = getQueryParam('name') || 'Link';
+      const preview = getQueryParam('preview');
+      const download = getQueryParam('download');
+      document.getElementById('title').textContent = name;
+      document.getElementById('preview-btn').href = preview;
+      document.getElementById('download-btn').href = download;
+    }
+
+    init();
+  </script>
+</body>
+</html>
