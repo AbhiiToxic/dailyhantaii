@@ -47,7 +47,7 @@
         });
       for (const link of filtered) {
         const a = document.createElement('a');
-        a.href = `view?name=${encodeURIComponent(link.name)}&preview=${encodeURIComponent(link.preview)}&download=${encodeURIComponent(link.download)}`;
+        a.href = `view.html?name=${encodeURIComponent(link.name)}&preview=${encodeURIComponent(link.preview)}&download=${encodeURIComponent(link.download)}`;
         a.className = 'link-button';
         a.textContent = link.name;
         listEl.appendChild(a);
