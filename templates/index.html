@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Link Directory</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 </head>
 <body class="dark">
@@ -14,8 +14,8 @@
         <h1 class="site-title">Daily Hantai</h1>
         <button id="menu-toggle" aria-label="Menu">&#9776;</button>
       </div>
-      <form id="search-form">
-        <input type="text" id="query" placeholder="Search links..." />
+      <form id="search-form" action="{{ url_for('index') }}" method="get">
+        <input type="text" id="query" name="q" value="{{ query }}" placeholder="Search links..." />
         <button type="submit">Search</button>
       </form>
       <nav id="menu" class="menu">
@@ -24,8 +24,11 @@
         <a href="https://t.me/Bishnoi_botz" class="menu-item">Support</a>
       </nav>
     </div>
-    <div id="links-list"></div>
+    <div id="links-list">
+      {% for link in links %}
+      <a href="{{ url_for('view', preview=link.preview, download=link.download, name=link.name) }}" class="link-button">{{ link.name }}</a>
+      {% endfor %}
+    </div>
   </div>
-  <script src="script.js"></script>
 </body>
 </html>
