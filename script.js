@@ -3,7 +3,15 @@ let links = [];
 function renderList(list) {
   const container = document.getElementById("links-list");
   container.innerHTML = "";
-  list.forEach(link => {
+
+  const sorted = [...list].sort((a, b) => {
+    const an = parseInt(a.name, 10);
+    const bn = parseInt(b.name, 10);
+    if (isNaN(an) || isNaN(bn)) return 0;
+    return bn - an;
+  });
+
+  sorted.forEach(link => {
     const a = document.createElement("a");
     const params = new URLSearchParams({
       preview: link.preview,
@@ -13,16 +21,7 @@ function renderList(list) {
     a.href = `view.html?${params.toString()}`;
     a.className = "link-button";
 
-    const left = document.createElement("span");
-    left.textContent = "Preview";
-    left.className = "left";
-
-    const right = document.createElement("span");
-    right.textContent = "Download";
-    right.className = "right";
-
-    a.appendChild(left);
-    a.appendChild(right);
+    a.textContent = link.name;
 
     container.appendChild(a);
   });
