@@ -17,15 +17,15 @@ commands. If `ADMIN_ID` is not set, anyone can manage the links.
 
 1. Install dependencies:
    ```bash
-   npm install
+   pip install -r requirements.txt
    ```
-2. Set environment variables:
-   - `BOT_TOKEN` – Telegram bot token.
-   - `ADMIN_ID` – your Telegram numeric user ID.
+2. Set environment variables (or edit `bot.py`):
+   - `BOT_TOKEN` – `yha bot id dalo`
+   - `ADMIN_ID` – `yha admin id`
 3. Start the bot:
    ```bash
-   npm start
+   python bot.py
    ```
 
-The bot reads and writes `links.json` in the repository root. Deploying to
-Heroku works the same as any Node.js application.
+The bot reads and writes `links.json` in the repository root. It can be
+deployed to platforms like Vercel using a Python runtime.
