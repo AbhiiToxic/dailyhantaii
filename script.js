@@ -5,10 +5,25 @@ function renderList(list) {
   container.innerHTML = "";
   list.forEach(link => {
     const a = document.createElement("a");
-    a.href = link.url;
-    a.textContent = link.name;
-    a.target = "_blank";
+    const params = new URLSearchParams({
+      preview: link.preview,
+      download: link.download,
+      name: link.name
+    });
+    a.href = `view.html?${params.toString()}`;
     a.className = "link-button";
+
+    const left = document.createElement("span");
+    left.textContent = "Preview";
+    left.className = "left";
+
+    const right = document.createElement("span");
+    right.textContent = "Download";
+    right.className = "right";
+
+    a.appendChild(left);
+    a.appendChild(right);
+
     container.appendChild(a);
   });
 }

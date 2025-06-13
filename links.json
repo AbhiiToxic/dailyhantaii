@@ -1,10 +1,22 @@
 [
   {
     "name": "1",
-    "url": "https://t.me/bishnoi_botz"
+    "preview": "https://t.me/bishnoi_botz",
+    "download": "https://t.me/bishnoi_botz?download=1"
   },
   {
     "name": "2",
-    "url": "https://t.me/bishnoi_botz/123"
+    "preview": "https://t.me/bishnoi_botz/123",
+    "download": "https://t.me/bishnoi_botz/123?download=1"
+  },
+  {
+    "name": "3",
+    "preview": "https://example.com/preview3",
+    "download": "https://example.com/download3"
+  },
+  {
+    "name": "4",
+    "preview": "https://example.com/preview4",
+    "download": "https://example.com/download4"
   }
 ]

@@ -4,6 +4,8 @@
   --container-bg: #fff;
   --button-bg: #0070f3;
   --button-bg-hover: #0059c1;
+  --preview-color: #0070f3;
+  --download-color: #e91e63;
 }
 
 body {
@@ -18,10 +20,12 @@ body.dark {
   --container-bg: #333;
   --button-bg: #3399ff;
   --button-bg-hover: #2376cc;
+  --preview-color: #3399ff;
+  --download-color: #ff4081;
 }
 
 .container {
-  max-width: 450px;
+  max-width: 600px;
   margin: 50px auto;
   padding: 20px;
   background: var(--container-bg);
@@ -66,18 +70,50 @@ body.dark {
   border: none;
 }
 
+#links-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
 .link-button {
-  display: block;
-  background-color: var(--button-bg);
+  display: flex;
+  background: linear-gradient(90deg, var(--preview-color) 50%, var(--download-color) 50%);
   color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  overflow: hidden;
+  font-weight: bold;
+}
+
+.link-button:hover {
+  filter: brightness(1.1);
+}
+
+.link-button .left,
+.link-button .right {
+  flex: 1;
+  padding: 12px 0;
+  text-align: center;
+}
+
+#action-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.action-btn {
+  flex: 1;
+  background: var(--button-bg);
+  color: #fff;
   text-align: center;
   padding: 12px;
-  margin: 10px 0;
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
 }
 
-.link-button:hover {
-  background-color: var(--button-bg-hover);
+.action-btn:hover {
+  background: var(--button-bg-hover);
 }
