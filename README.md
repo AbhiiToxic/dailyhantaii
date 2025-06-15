@@ -43,4 +43,4 @@ The server reads the same `links.json` file and the client renders the list. Set
 
 ### Admin Panel
 
-Navigate to `/admin` in your browser to view all buttons and see how many are currently listed. The page reads `links.json` and displays each entry along with the total count.
+Navigate to `/admin` in your browser to manage the list. The admin panel is protected with HTTP Basic authentication. Set the `ADMIN_USER` and `ADMIN_PASS` environment variables before starting the server. After logging in you can see the existing buttons and add new ones by providing preview and download links. New entries are appended to `links.json` automatically.

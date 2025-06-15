@@ -11,6 +11,11 @@
     <div class="header">
       <h1>Admin Panel</h1>
     </div>
+    <form id="add-form">
+      <input type="text" id="preview" placeholder="Preview link" required>
+      <input type="text" id="download" placeholder="Download link" required>
+      <button type="submit">Add Button</button>
+    </form>
     <p id="stats"></p>
     <table id="links-table">
       <thead>
@@ -38,6 +43,50 @@
         tbody.appendChild(row);
       }
     }
+    let auth = '';
+
+    async function request(url, options = {}) {
+      if (!auth) {
+        const user = prompt('Username');
+        const pass = prompt('Password');
+        auth = 'Basic ' + btoa(`${user}:${pass}`);
+      }
+      options.headers = Object.assign({}, options.headers, {
+        'Authorization': auth,
+        'Content-Type': 'application/json'
+      });
+      const res = await fetch(url, options);
+      if (res.status === 401) {
+        auth = '';
+        alert('Auth failed');
+        throw new Error('Auth failed');
+      }
+      return res;
+    }
+
+    document.getElementById('add-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const preview = document.getElementById('preview').value.trim();
+      const download = document.getElementById('download').value.trim();
+      if (!preview || !download) return;
+      const res = await request('/api/add', {
+        method: 'POST',
+        body: JSON.stringify({ preview, download })
+      });
+      const entry = await res.json();
+      const tbody = document.querySelector('#links-table tbody');
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${entry.name}</td>
+        <td><a href="${entry.preview}" target="_blank">Preview</a></td>
+        <td><a href="${entry.download}" target="_blank">Download</a></td>`;
+      tbody.appendChild(row);
+      document.getElementById('preview').value = '';
+      document.getElementById('download').value = '';
+      const count = parseInt(document.getElementById('stats').textContent.split(':')[1]) || 0;
+      document.getElementById('stats').textContent = `Total buttons: ${count + 1}`;
+    });
+
     loadAdmin();
   </script>
 </body>
