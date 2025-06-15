@@ -40,3 +40,7 @@ npm start
 ```
 
 The server reads the same `links.json` file and the client renders the list. Set the `PORT` environment variable if your host requires a specific port.
+
+### Admin Panel
+
+Navigate to `/admin` in your browser to view all buttons and see how many are currently listed. The page reads `links.json` and displays each entry along with the total count.

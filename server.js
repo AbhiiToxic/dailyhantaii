@@ -16,6 +16,10 @@ app.get('/view', (req, res) => {
   res.sendFile(path.join(__dirname, 'view.html'));
 });
 
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
