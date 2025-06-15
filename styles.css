@@ -1,5 +1,5 @@
 :root {
-  --bg: #f5f5f5;
+  --bg: linear-gradient(135deg, #f0f0f0, #d9d9d9);
   --text: #333;
   --container-bg: #fff;
   --button-bg: #0070f3;
@@ -9,13 +9,13 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
 }
 
 body.dark {
-  --bg: #222;
+  --bg: linear-gradient(135deg, #1e293b, #0f172a);
   --text: #f5f5f5;
   --container-bg: #333;
   --button-bg: #3399ff;
@@ -25,12 +25,13 @@ body.dark {
 }
 
 .container {
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 20px;
+  max-width: 640px;
+  margin: 60px auto;
+  padding: 24px;
   background: var(--container-bg);
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 #top-bar {
@@ -48,8 +49,8 @@ body.dark {
 }
 
 .site-title {
-  font-family: 'Playfair Display', serif;
-  color: yellow;
+  font-family: 'Poppins', sans-serif;
+  color: #ffdd57;
   margin: 0;
 }
 
@@ -75,29 +76,40 @@ body.dark {
 .menu-item {
   color: var(--text);
   text-decoration: none;
-  padding: 4px 0;
+  padding: 6px 0;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.menu-item:hover {
+  color: var(--button-bg);
 }
 
 #search-form {
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 #search-form input {
   flex: 1;
   padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
 }
 
 #search-form button {
-  padding: 8px 12px;
-  background: green;
-  color: white;
+  padding: 8px 16px;
+  background: var(--button-bg);
+  color: #fff;
   border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
 }
 
 #links-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 10px;
 }
 
@@ -110,10 +122,13 @@ body.dark {
   font-weight: bold;
   padding: 12px 0;
   text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s ease-in-out, transform 0.1s;
 }
 
 .link-button:hover {
   background: var(--button-bg-hover);
+  transform: translateY(-2px);
 }
 
 #action-buttons {
@@ -133,8 +148,11 @@ body.dark {
   font-weight: bold;
   display: block;
   width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s ease-in-out, transform 0.1s;
 }
 
 .action-btn:hover {
   background: var(--button-bg-hover);
+  transform: translateY(-2px);
 }
