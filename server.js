@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const { MongoClient } = require('mongodb');
+const linksApi = require('./pages/api/links');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -42,6 +43,7 @@ function basicAuth(req, res, next) {
 }
 
 app.use(express.json());
+app.use('/api/links', linksApi);
 
 app.get('/links.json', async (req, res) => {
   if (linksCollection) {
