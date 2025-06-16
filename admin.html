@@ -46,9 +46,9 @@
       return row;
     }
 
-    async function loadAdmin() {
-      const res = await fetch('links.json');
-      const data = await res.json();
+      async function loadAdmin() {
+        const res = await fetch('/api/links');
+        const data = await res.json();
       document.getElementById('stats').textContent = `Total buttons: ${data.length}`;
       const tbody = document.querySelector('#links-table tbody');
       tbody.innerHTML = '';
