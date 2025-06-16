@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const { MongoClient } = require('mongodb');
+const idRouter = require('./links/[id]');
 
 const router = express.Router();
 
@@ -77,5 +78,8 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: 'Failed to add link' });
   }
 });
+
+// Delegate /api/links/:id routes
+router.use('/:id', idRouter);
 
 module.exports = router;
