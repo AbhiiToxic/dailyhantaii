@@ -2,8 +2,11 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const { MongoClient } = require('mongodb');
-const linksApi = require('./pages/api/links');
+const linksApi = require('./pages/api/links'); codex/create-api-/api/stats/summary.js
+const statsSummary = require('./pages/api/stats/summary');
+
 const statsRecordApi = require('./pages/api/stats/record');
+main
 const app = express();
 
 // Load environment variables from .env if present
@@ -47,7 +50,11 @@ function basicAuth(req, res, next) {
 
 app.use(express.json());
 app.use('/api/links', linksApi);
+ codex/create-api-/api/stats/summary.js
+app.use('/api/stats/summary', statsSummary);
+
 app.use('/api/stats/record', statsRecordApi);
+ main
 
 app.get('/links.json', async (req, res) => {
   if (linksCollection) {
