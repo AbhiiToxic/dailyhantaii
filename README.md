@@ -1,6 +1,6 @@
 # Daily Hantai Site
 
-This repository contains a small Express web server that serves static pages from this directory and reads `links.json` to display available links. An admin panel at `/admin` lets you add new entries.
+This repository contains a small Express web server that serves static pages from this directory. Links can be stored either in a local `links.json` file or in a MongoDB collection. If the `MONGO_URL` environment variable is provided, the server will use MongoDB to store and retrieve entries. Otherwise it falls back to the local JSON file. An admin panel at `/admin` lets you add new entries.
 
 ## Setup
 
@@ -14,3 +14,4 @@ This repository contains a small Express web server that serves static pages fro
    ```
 
 Set the `PORT` environment variable if your host requires a specific port. The admin panel is protected with HTTP Basic authentication; provide `ADMIN_USER` and `ADMIN_PASS` environment variables before starting the server.
+To store data in MongoDB instead of the local JSON file, set `MONGO_URL` to a valid MongoDB connection string before starting the server.
