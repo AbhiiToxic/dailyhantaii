@@ -5,11 +5,13 @@ const { MongoClient } = require('mongodb');
 const linksApi = require('./pages/api/links');
 const app = express();
 
+// Load environment variables from .env if present
+require('dotenv').config();
+
 const PORT = process.env.PORT || 3000;
 
-// Default MongoDB connection string
-const MONGO_URL = process.env.MONGO_URL ||
-  'mongodb+srv://SITE:SITE@cluster0.oscpdgu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+// MongoDB connection string must be supplied via environment variable
+const MONGO_URL = process.env.MONGO_URL;
 let linksCollection;
 
 if (MONGO_URL) {

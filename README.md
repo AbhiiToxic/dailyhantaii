@@ -8,10 +8,15 @@ This repository contains a small Express web server that serves static pages fro
    ```bash
    npm install
    ```
-2. Start the server:
+2. Copy `.env.example` to `.env` and update `MONGO_URL` with your connection string:
+   ```bash
+   cp .env.example .env
+   # edit .env to provide your credentials
+   ```
+3. Start the server:
    ```bash
    npm start
    ```
 
 Set the `PORT` environment variable if your host requires a specific port. The admin panel is protected with HTTP Basic authentication; provide `ADMIN_USER` and `ADMIN_PASS` environment variables before starting the server.
-To store data in MongoDB instead of the local JSON file, set `MONGO_URL` to a valid MongoDB connection string before starting the server.
+To store data in MongoDB instead of the local JSON file, set `MONGO_URL` in the `.env` file to a valid MongoDB connection string before starting the server.
