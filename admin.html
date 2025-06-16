@@ -23,24 +23,37 @@
           <th>Name</th>
           <th>Preview</th>
           <th>Download</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
   </div>
   <script>
+    function createRow(link) {
+      const row = document.createElement('tr');
+      row.dataset.id = link.name;
+      row.innerHTML = `
+        <td>${link.name}</td>
+        <td><a href="${link.preview}" target="_blank">Preview</a></td>
+        <td><a href="${link.download}" target="_blank">Download</a></td>
+        <td>
+          <button class="edit-btn">Edit</button>
+          <button class="delete-btn">Delete</button>
+        </td>`;
+      row.querySelector('.edit-btn').addEventListener('click', () => editLink(link.name, row));
+      row.querySelector('.delete-btn').addEventListener('click', () => deleteLink(link.name, row));
+      return row;
+    }
+
     async function loadAdmin() {
       const res = await fetch('links.json');
       const data = await res.json();
       document.getElementById('stats').textContent = `Total buttons: ${data.length}`;
       const tbody = document.querySelector('#links-table tbody');
+      tbody.innerHTML = '';
       for (const link of data) {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${link.name}</td>
-          <td><a href="${link.preview}" target="_blank">Preview</a></td>
-          <td><a href="${link.download}" target="_blank">Download</a></td>`;
-        tbody.appendChild(row);
+        tbody.appendChild(createRow(link));
       }
     }
     let auth = '';
@@ -64,6 +77,30 @@
       return res;
     }
 
+    async function editLink(id, row) {
+      const currentPreview = row.cells[1].querySelector('a').href;
+      const currentDownload = row.cells[2].querySelector('a').href;
+      const preview = prompt('Preview link', currentPreview);
+      if (preview === null) return;
+      const download = prompt('Download link', currentDownload);
+      if (download === null) return;
+      const res = await request(`/api/links/${encodeURIComponent(id)}`, {
+        method: 'PUT',
+        body: JSON.stringify({ preview, download })
+      });
+      const data = await res.json();
+      row.cells[1].innerHTML = `<a href="${data.preview}" target="_blank">Preview</a>`;
+      row.cells[2].innerHTML = `<a href="${data.download}" target="_blank">Download</a>`;
+    }
+
+    async function deleteLink(id, row) {
+      if (!confirm('Delete this link?')) return;
+      await request(`/api/links/${encodeURIComponent(id)}`, { method: 'DELETE' });
+      row.remove();
+      const count = document.querySelectorAll('#links-table tbody tr').length;
+      document.getElementById('stats').textContent = `Total buttons: ${count}`;
+    }
+
     document.getElementById('add-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const preview = document.getElementById('preview').value.trim();
@@ -75,12 +112,7 @@
       });
       const entry = await res.json();
       const tbody = document.querySelector('#links-table tbody');
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${entry.name}</td>
-        <td><a href="${entry.preview}" target="_blank">Preview</a></td>
-        <td><a href="${entry.download}" target="_blank">Download</a></td>`;
-      tbody.appendChild(row);
+      tbody.appendChild(createRow(entry));
       document.getElementById('preview').value = '';
       document.getElementById('download').value = '';
       const count = parseInt(document.getElementById('stats').textContent.split(':')[1]) || 0;
