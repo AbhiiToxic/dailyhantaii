@@ -13,7 +13,9 @@ function basicAuth(req, res, next) {
   const token = header.split(' ')[1];
   if (token) {
     const decoded = Buffer.from(token, 'base64').toString();
-    const [user, pass] = decoded.split(':');
+    const index = decoded.indexOf(':');
+    const user = index >= 0 ? decoded.slice(0, index) : decoded;
+    const pass = index >= 0 ? decoded.slice(index + 1) : '';
     if (user === ADMIN_USER && pass === ADMIN_PASS) {
       return next();
     }
