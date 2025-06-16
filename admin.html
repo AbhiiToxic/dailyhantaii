@@ -16,7 +16,12 @@
       <input type="text" id="download" placeholder="Download link" required>
       <button type="submit">Add Button</button>
     </form>
-    <p id="stats"></p>
+    <div id="stats-section">
+      <h2>Stats</h2>
+      <p id="link-count"></p>
+      <p id="visit-count"></p>
+      <p id="click-count"></p>
+    </div>
     <table id="links-table">
       <thead>
         <tr>
@@ -49,12 +54,21 @@
       async function loadAdmin() {
         const res = await fetch('/api/links');
         const data = await res.json();
-      document.getElementById('stats').textContent = `Total buttons: ${data.length}`;
-      const tbody = document.querySelector('#links-table tbody');
-      tbody.innerHTML = '';
-      for (const link of data) {
-        tbody.appendChild(createRow(link));
-      }
+      document.getElementById('link-count').textContent = `Total buttons: ${data.length}`;
+        const tbody = document.querySelector('#links-table tbody');
+        tbody.innerHTML = '';
+        for (const link of data) {
+          tbody.appendChild(createRow(link));
+        }
+    }
+
+    async function loadStats() {
+      const res = await fetch('/stats.json');
+      const data = await res.json();
+      const visits = data.filter(s => s.type === 'visit').length;
+      const clicks = data.filter(s => s.type === 'click').length;
+      document.getElementById('visit-count').textContent = `Visits: ${visits}`;
+      document.getElementById('click-count').textContent = `Clicks: ${clicks}`;
     }
     let auth = '';
 
@@ -98,7 +112,7 @@
       await request(`/api/links/${encodeURIComponent(id)}`, { method: 'DELETE' });
       row.remove();
       const count = document.querySelectorAll('#links-table tbody tr').length;
-      document.getElementById('stats').textContent = `Total buttons: ${count}`;
+      document.getElementById('link-count').textContent = `Total buttons: ${count}`;
     }
 
     document.getElementById('add-form').addEventListener('submit', async (e) => {
@@ -115,11 +129,12 @@
       tbody.appendChild(createRow(entry));
       document.getElementById('preview').value = '';
       document.getElementById('download').value = '';
-      const count = parseInt(document.getElementById('stats').textContent.split(':')[1]) || 0;
-      document.getElementById('stats').textContent = `Total buttons: ${count + 1}`;
+      const count = parseInt(document.getElementById('link-count').textContent.split(':')[1]) || 0;
+      document.getElementById('link-count').textContent = `Total buttons: ${count + 1}`;
     });
 
     loadAdmin();
+    loadStats();
   </script>
 </body>
 </html>
