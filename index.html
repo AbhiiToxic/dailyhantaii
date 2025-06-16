@@ -32,6 +32,18 @@
       return url.searchParams.get(name) || '';
     }
 
+    async function recordStat(type) {
+      try {
+        await fetch('/api/stats/record', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type })
+        });
+      } catch (e) {
+        console.error('Failed to record stat', e);
+      }
+    }
+
     async function loadLinks() {
       const res = await fetch('links.json');
       const data = await res.json();
@@ -50,11 +62,13 @@
         a.href = `view.html?name=${encodeURIComponent(link.name)}&preview=${encodeURIComponent(link.preview)}&download=${encodeURIComponent(link.download)}`;
         a.className = 'link-button';
         a.textContent = link.name;
+        a.addEventListener('click', () => recordStat('click'));
         listEl.appendChild(a);
       }
     }
 
     loadLinks();
+    recordStat('visit');
 
     const menuToggle = document.getElementById('menu-toggle');
     const menu = document.getElementById('menu');

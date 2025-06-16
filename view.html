@@ -22,6 +22,18 @@
       return url.searchParams.get(name) || '';
     }
 
+    async function recordStat(type) {
+      try {
+        await fetch('/api/stats/record', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type })
+        });
+      } catch (e) {
+        console.error('Failed to record stat', e);
+      }
+    }
+
     function init() {
       const name = getQueryParam('name') || 'Link';
       const preview = getQueryParam('preview');
@@ -29,9 +41,12 @@
       document.getElementById('title').textContent = name;
       document.getElementById('preview-btn').href = preview;
       document.getElementById('download-btn').href = download;
+      document.getElementById('preview-btn').addEventListener('click', () => recordStat('click'));
+      document.getElementById('download-btn').addEventListener('click', () => recordStat('click'));
     }
 
     init();
+    recordStat('visit');
   </script>
 </body>
 </html>
