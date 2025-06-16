@@ -6,7 +6,9 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-const MONGO_URL = process.env.MONGO_URL;
+// Default MongoDB connection string
+const MONGO_URL = process.env.MONGO_URL ||
+  'mongodb+srv://SITE:SITE@cluster0.oscpdgu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 let linksCollection;
 
 if (MONGO_URL) {
